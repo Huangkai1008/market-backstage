@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "market-backstage"
+version = "0.1.0"
+description = "market-backstage is a Market backstage management system with [flask]"
+authors = ["huangkai <h1770360848@outlook.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.black]
+skip-string-normalization = true
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+default = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
