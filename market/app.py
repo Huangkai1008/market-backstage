@@ -3,7 +3,8 @@ import os
 
 from flask import Flask
 
-from market.util.response import MarketFlask
+from market.logging import configure_logger
+from market.util.response import APIFlask
 
 
 def create_app() -> Flask:
@@ -12,8 +13,9 @@ def create_app() -> Flask:
     See Also: https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/
 
     """
-    app = MarketFlask(__name__)
+    app = APIFlask(__name__)
     configure_app(app)
+    configure_logger(app)
     return app
 
 

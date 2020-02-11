@@ -1,9 +1,9 @@
 from flask import Flask
 
-__all__ = ['MarketFlask']
+__all__ = ['APIFlask']
 
 
-class MarketFlask(Flask):
+class APIFlask(Flask):
     """Custom flask class."""
 
     def make_response(self, rv):
