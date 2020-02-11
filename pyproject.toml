@@ -19,6 +19,10 @@ pymysql = "^1.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
 [tool.black]
 skip-string-normalization = true
 
