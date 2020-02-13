@@ -66,7 +66,6 @@ def register_error_handlers(app: Flask):
 
     @app.errorhandler(404)
     def page_not_found(error):
-        print(error, type(error))
         return jsonify(dict(message=msg.NOT_FOUND_ERROR)), 404
 
     @app.errorhandler(MarketClientException)
