@@ -7,7 +7,7 @@ __all__ = ['Brand']
 class Brand(PkModel, SoftDeleteMixin):
     """商品品牌"""
 
-    __tablename__ = 'product_category'
+    __tablename__ = 'product_brand'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False, comment='品牌名称')
