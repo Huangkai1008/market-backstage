@@ -4,11 +4,13 @@ from market.constant.product import CategorySpecType
 from market.extensions import db
 from market.model.base import PkModel, SoftDeleteMixin
 
-__all__ = ['ProductCategory', 'ProductCategorySpec']
+__all__ = ['Category', 'CategorySpec']
 
 
-class ProductCategory(PkModel, SoftDeleteMixin):
+class Category(PkModel, SoftDeleteMixin):
     """商品分类"""
+
+    __tablename__ = 'product_category'
 
     __table_args__ = (UniqueConstraint('cat_name', 'delete_time'),)
 
@@ -25,8 +27,10 @@ class ProductCategory(PkModel, SoftDeleteMixin):
     cat_desc = db.Column(db.String(255), description='分类描述')
 
 
-class ProductCategorySpec(PkModel, SoftDeleteMixin):
+class CategorySpec(PkModel, SoftDeleteMixin):
     """商品分类规格 用于确定商品的规格模板"""
+
+    __tablename__ = 'product_category_spec'
 
     __table_args__ = (UniqueConstraint('cat_name', 'spec_name', 'delete_time'),)
 
