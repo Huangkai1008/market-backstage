@@ -42,6 +42,12 @@ class Config:
     OPENAPI_SWAGGER_UI_PATH = '/swagger-ui'
     OPENAPI_SWAGGER_UI_URL = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist/'
 
+    # Minio
+    MINIO_ENDPOINT = env.str('MINIO_ENDPOINT')
+    MINIO_ACCESS_KEY = env.str('MINIO_ACCESS_KEY')
+    MINIO_SECRET_KEY = env.str('MINIO_SECRET_KEY')
+    MINIO_SECURE = env.bool('MINIO_SECURE')
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

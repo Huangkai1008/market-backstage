@@ -16,9 +16,12 @@ flask-marshmallow = "^0.14.0"
 marshmallow-sqlalchemy = "^0.24.2"
 pymysql = "^1.0"
 loguru = "^0.5.3"
+minio = "^7.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+black = "^20.8b1"
+isort = "^5.8.0"
 
 [tool.isort]
 profile = "black"

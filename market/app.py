@@ -2,12 +2,13 @@
 import os
 import traceback
 
-from flask import Flask, current_app, jsonify
+from flask import Flask, jsonify
+from loguru import logger
 from webargs.flaskparser import FlaskParser
 
 from market.constant import message as msg
 from market.exceptions import MarketClientException, MarketException
-from market.extensions import api, db, ma, migrate
+from market.extensions import api, db, ma, migrate, minio
 from market.logging import configure_logger
 from market.util import openapi as openapi_util
 from market.util.response import APIFlask
@@ -45,6 +46,7 @@ def register_extensions(app: Flask):
     db.init_app(app)
     migrate.init_app(app, db=db)
     ma.init_app(app)
+    minio.init_app(app)
 
 
 def register_api_blueprints():
@@ -68,15 +70,14 @@ def register_error_handlers(app: Flask):
     def page_not_found(error):
         return jsonify(dict(message=msg.NOT_FOUND_ERROR)), 404
 
-    @app.errorhandler(MarketClientException)
+    @app.errorhandler(Exception)
     def market_exception_handler(error):
-        current_app.logger.warning(traceback.format_exc())
-
+        logger.warning(traceback.format_exc())
         if isinstance(error, MarketClientException):
             response = jsonify(dict(error))
             response.status_code = error.status_code
         else:
-            current_app.logger.error(msg.SERVER_LOG_ERROR)
+            logger.error(msg.SERVER_LOG_ERROR)
             error = MarketException(msg.SERVER_UI_ERROR)
             response = jsonify(dict(error))
             response.status_code = error.status_code

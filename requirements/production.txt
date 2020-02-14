@@ -2,6 +2,7 @@
 
 alembic==1.5.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
 apispec==4.4.0; python_version >= "3.6"
+certifi==2020.12.5
 click==7.1.2; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 colorama==0.4.4; python_version >= "3.5" and python_full_version < "3.0.0" and sys_platform == "win32" or sys_platform == "win32" and python_version >= "3.5" and python_full_version >= "3.5.0"
 environs==9.3.2; python_version >= "3.6"
@@ -19,6 +20,7 @@ mako==1.1.4; python_version >= "2.7" and python_full_version < "3.0.0" or python
 markupsafe==1.1.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
 marshmallow-sqlalchemy==0.24.2; python_version >= "3.6"
 marshmallow==3.11.1; python_version >= "3.6"
+minio==7.0.3
 pymysql==1.0.2; python_version >= "3.6"
 python-dateutil==2.8.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
 python-dotenv==0.17.0; python_version >= "3.6"
@@ -26,6 +28,7 @@ python-editor==1.0.4; python_version >= "2.7" and python_full_version < "3.0.0" 
 six==1.15.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
 sqlalchemy==1.4.8; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6"
 typing-extensions==3.7.4.3; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.6.0" and python_version < "3.8" and python_version >= "3.6"
+urllib3==1.26.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
 webargs==8.0.0; python_version >= "3.6"
 werkzeug==1.0.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 win32-setctime==1.0.3; sys_platform == "win32" and python_version >= "3.5"
