@@ -6,6 +6,7 @@ from flask import Flask, jsonify
 from loguru import logger
 from webargs.flaskparser import FlaskParser
 
+from market.api import storage as storage_api
 from market.constant import message as msg
 from market.exceptions import MarketClientException, MarketException
 from market.extensions import api, db, ma, migrate, minio
@@ -57,6 +58,8 @@ def register_api_blueprints():
     api.spec.options['security'] = [{'bearerAuth': []}]
     api.ma_plugin.Converter._field2parameter = openapi_util.patched_field2parameter
     FlaskParser.DEFAULT_UNKNOWN_BY_LOCATION['json'] = None
+
+    api.register_blueprint(storage_api.blp)
 
 
 def register_before_handlers(app: Flask):
