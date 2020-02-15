@@ -12,6 +12,5 @@ class StorageObjectAPI(MethodView):
     @blp.arguments(StorageObjectCreateSchema, location='files')
     @blp.response(200, StorageObjectSchema)
     def post(self, files):
-        """创建对象"""
-        file = files['file']
-        return storage_service.put_object(file)
+        """存储管理 创建对象"""
+        return storage_service.put_object(files['file'])

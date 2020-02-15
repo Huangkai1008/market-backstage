@@ -44,11 +44,11 @@ class MassArgSchema(ArgSchema):
     )
 
 
-class ReturnSchema(Schema):
+class ResultSchema(Schema):
     ...
 
 
-class PageListResultSchema(BaseSchema):
+class ListResultSchema(BaseSchema):
     total = fields.Int(description='总数')
 
 
