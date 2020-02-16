@@ -13,6 +13,7 @@ class SqlAHook(SQLAlchemy, BaseHook):
     def init_app(self, app: Flask):
         super(SqlAHook, self).init_app(app)
 
-    def apply_pool_defaults(self, app, options):
-        super(SqlAHook, self).apply_pool_defaults(app, options)
+    def apply_pool_defaults(self, app, options) -> dict:
+        options = super().apply_pool_defaults(app, options)
         options['pool_pre_ping'] = True
+        return options

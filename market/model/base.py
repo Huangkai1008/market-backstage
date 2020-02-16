@@ -30,6 +30,10 @@ class PkModel(Model):
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}(id={self.id})>'
 
+    def flush(self):
+        db.session.add(self)
+        db.session.flush()
+
 
 class SoftDeleteMixin:
     """Soft-Delete mixin class."""

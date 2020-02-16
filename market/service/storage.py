@@ -2,9 +2,10 @@ from loguru import logger
 
 from market.constant.storage import BUCKET_NAME, PART_SIZE
 from market.extensions import minio
+from market.service.base import BaseService
 
 
-class StorageService:
+class StorageService(BaseService):
     """对象存储服务"""
 
     @classmethod
