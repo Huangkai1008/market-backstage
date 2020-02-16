@@ -9,7 +9,7 @@ from market.schema.product.brand import (
 from market.service.product import brand_service
 from market.util.blueprint import APIBlueprint
 
-blp = APIBlueprint('商品品牌管理', __name__, url_prefix='/api/v1/product/brands')
+blp = APIBlueprint('商品服务-商品品牌管理', __name__, url_prefix='/api/v1/product/brands')
 
 
 @blp.route('/')

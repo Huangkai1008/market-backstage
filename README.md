@@ -7,11 +7,11 @@ market-backstage is a Market backstage management system with [flask](https://fl
 
 ## Contents
 
-- [Installation](#installation)
+- [Quick Start](#Quick Start)
 - [Usage](#Usage)
 - [License](#License)
 
-## Installation
+## Quick Start
 1. Get the project
 ```bash
 go -get https://github.com/Huangkai1008/market-backstage
@@ -20,15 +20,32 @@ go -get https://github.com/Huangkai1008/market-backstage
 2. Make sure you have installed [poetry](https://github.com/sdispater/poetry)
 ```bash
 pip install poetry
-```
-
-## Usage
-
-```bash
 poetry install                  # Add the libs
 poetry shell                    # Start the virtualenv
-flask run                       # Start the flask server
 ```
+
+3. Set environment variables
+```bash
+cp .env.example .env
+```
+
+3. Run it
+```bash
+flask run
+```
+## Usage
+
+### Deployment
+#### With Gunicorn
+```bash
+gunicorn autoapp:app
+        --bind 127.0.0.1:5000
+        -w 8
+        -k eventlet
+        --access-logfile -
+        --error-logfile -
+```
+
 
 ## License
 [MIT](https://www.mit-license.org/)
