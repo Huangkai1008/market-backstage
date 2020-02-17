@@ -24,7 +24,7 @@ class Category(PkModel, SoftDeleteMixin):
     )
     cat_keywords = db.Column(db.String(255), comment='分类关键词')
     cat_icon = db.Column(db.String(255), comment='分类图标')
-    cat_desc = db.Column(db.String(255), description='分类描述')
+    cat_desc = db.Column(db.String(255), comment='分类描述')
 
 
 class CategorySpec(PkModel, SoftDeleteMixin):
@@ -32,11 +32,11 @@ class CategorySpec(PkModel, SoftDeleteMixin):
 
     __tablename__ = 'product_category_spec'
 
-    __table_args__ = (UniqueConstraint('cat_name', 'spec_name', 'delete_time'),)
+    __table_args__ = (UniqueConstraint('cat_id', 'spec_name', 'delete_time'),)
 
     cat_id = db.Column(db.Integer, nullable=False, index=True, comment='商品分类ID')
     spec_type = db.Column(
-        db.SmallInteger, nullable=False, index=True, comment=CategorySpecType.desc
+        db.SmallInteger, nullable=False, index=True, comment=CategorySpecType.desc()
     )
     spec_name = db.Column(
         db.String(64), nullable=False, comment='分类规格名称'

@@ -8,6 +8,6 @@ class CategorySpecType(IntEnum):
     SALE = 1  # 销售规格属性
     DISPLAY = 2  # 展示规格属性
 
-    @property
-    def desc(self):
+    @classmethod
+    def desc(cls):
         return '分类规格类型：1--销售规格属性，2--展示规格属性'
