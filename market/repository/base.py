@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Dict, List, Tuple, Type
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 from sqlalchemy import asc, desc
 
@@ -133,3 +133,12 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         self.model_class.query.filter_by(id=record_id).delete()
         if commit:
             db.session.commit()
+
+    def get(self, record_id: int) -> Optional[PkModel]:
+        return self.model_class.get(record_id)
+
+    def find(self, row_locked: bool = False, **kwargs) -> Optional[PkModel]:
+        query = self.model_class.query.filter_by(**kwargs)
+        if row_locked:
+            query = query.with_for_update()
+        return query.first()

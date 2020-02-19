@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
+from market.constant import message as msg
+from market.exceptions import MarketBadRequest
 from market.repository.base import CRUDRepository
 
 __all__ = ['BaseService', 'CRUDService']
@@ -27,3 +29,15 @@ class CRUDService(BaseService, metaclass=ABCMeta):
 
     def delete(self, record_id: int):
         return self.repo.delete(record_id)
+
+    def get_or_error(self, record_id: int, error_msg: str = msg.RECORD_NOT_FOUND_ERROR):
+        record = self.repo.get(record_id)
+        if not record:
+            raise MarketBadRequest(error_msg)
+        return record
+
+    def find_or_error(self, error_msg: str = msg.RECORD_NOT_FOUND_ERROR, **kwargs):
+        record = self.repo.find(**kwargs)
+        if not record:
+            raise MarketBadRequest(error_msg)
+        return record

@@ -5,7 +5,7 @@ from market.model.product.brand import Brand
 from market.schema.base import (
     ListQueryArgSchema,
     ListResultSchema,
-    SQLAlchemyBaseSchema,
+    SQLAlchemyAutoSchema,
     SQLAlchemyPkSchema,
 )
 
@@ -23,12 +23,16 @@ class BrandListSchema(ListResultSchema):
     items = fields.List(fields.Nested(BrandSchema))
 
 
-class BrandBaseSchema(SQLAlchemyBaseSchema):
+class BrandBaseSchema(SQLAlchemyAutoSchema):
     logo = auto_field()
 
-    class Meta(SQLAlchemyBaseSchema.Meta):
+    class Meta(SQLAlchemyAutoSchema.Meta):
         model = Brand
+        fields = ['logo']
 
 
 class BrandCreateSchema(BrandBaseSchema):
     name = auto_field()
+
+    class Meta(BrandBaseSchema.Meta):
+        fields = ['name', 'logo']

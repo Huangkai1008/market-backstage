@@ -56,11 +56,6 @@ class SQLAlchemyAutoSchema(ma.SQLAlchemyAutoSchema, BaseSchema):
     pass
 
 
-class SQLAlchemyBaseSchema(SQLAlchemyAutoSchema):
-    class Meta(SQLAlchemyAutoSchema.Meta):
-        exclude = ['id', 'create_time', 'update_time', 'delete_time']
-
-
 class SQLAlchemyPkSchema(SQLAlchemyAutoSchema):
     create_time = DateTime(description='创建时间')
     update_time = DateTime(description='更新时间')

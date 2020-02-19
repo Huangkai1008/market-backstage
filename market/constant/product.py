@@ -1,6 +1,9 @@
 """商品服务相关的常量"""
 from enum import IntEnum
 
+CATEGORY_DEFAULT_PARENT_ID = 0  # 默认父分类ID
+CATEGORY_DEFAULT_LEVEL = 0  # 默认分类等级
+
 
 class CategorySpecType(IntEnum):
     """商品分类规格类型"""
