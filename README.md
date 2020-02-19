@@ -7,11 +7,11 @@ market-backstage is a Market backstage management system with [flask](https://fl
 
 ## Contents
 
-- [Quick Start](#Quick Start)
+- [QuickStart](#QuickStart)
 - [Usage](#Usage)
 - [License](#License)
 
-## Quick Start
+## QuickStart
 1. Get the project
 ```bash
 go -get https://github.com/Huangkai1008/market-backstage
