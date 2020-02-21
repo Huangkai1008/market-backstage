@@ -36,3 +36,7 @@ class BrandCreateSchema(BrandBaseSchema):
 
     class Meta(BrandBaseSchema.Meta):
         fields = ['name', 'logo']
+
+
+class BrandUpdateSchema(BrandBaseSchema):
+    ...

@@ -44,7 +44,7 @@ class MassArgSchema(ArgSchema):
     )
 
 
-class ResultSchema(Schema):
+class RespSchema(Schema):
     ...
 
 
