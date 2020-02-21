@@ -1,4 +1,4 @@
-import datetime as dt
+import time
 
 from sqlalchemy import event, inspect
 from sqlalchemy.orm import Query
@@ -18,7 +18,7 @@ def soft_delete_query(query):
         inspector = inspect(desc['entity'])
         mapper = getattr(inspector, 'mapper', None)
         if mapper and issubclass(mapper.class_, SoftDeleteMixin):
-            query = query.enable_assertions(False).filter(entity.delete_time.is_(None))
+            query = query.enable_assertions(False).filter(entity.delete_time == 0)
             break
     return query
 
@@ -28,6 +28,6 @@ def soft_delete(query, delete_context):
     for desc in query.column_descriptions:
         if issubclass(desc['type'], SoftDeleteMixin):
             entity = desc['entity']
-            query = query.filter(entity.delete_time.is_(None))
-            query.update(dict(delete_time=dt.datetime.now()))
+            query = query.filter(entity.delete_time == 0)
+            query.update(dict(delete_time=int(time.time())))
             return db.session.query(Brand).filter(False)
