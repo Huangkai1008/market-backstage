@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Tuple, Type
 
 from market.model.product.category import Category, CategorySpec
 from market.repository.base import CRUDRepository
@@ -16,3 +16,7 @@ class CategorySpecRepository(CRUDRepository):
     @property
     def model_class(self) -> Type[CategorySpec]:
         return CategorySpec
+
+    @property
+    def query_params(self) -> Tuple:
+        return ('cat_id',)

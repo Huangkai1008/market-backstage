@@ -1,4 +1,5 @@
 from market.constant.product import CATEGORY_DEFAULT_LEVEL
+from market.extensions import db
 from market.repository.product import (
     CategoryRepository,
     CategorySpecRepository,
@@ -30,3 +31,8 @@ class CategorySpecService(CRUDService):
     @property
     def repo(self) -> CategorySpecRepository:
         return category_spec_repo
+
+    def create_many(self, args: dict):
+        for arg in args:
+            self.create(arg, commit=False)
+        db.session.commit()
