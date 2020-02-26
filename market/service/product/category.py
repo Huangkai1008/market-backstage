@@ -18,7 +18,7 @@ class CategoryService(CRUDService):
     def create(self, args: dict, commit: bool = True):
         parent_id = args['parent_id']
         if parent_id:
-            parent_category = self.find_or_error(parent_id=parent_id)
+            parent_category = self.find_or_error(id=parent_id)
             level = parent_category.level + 1
         else:
             level = CATEGORY_DEFAULT_LEVEL

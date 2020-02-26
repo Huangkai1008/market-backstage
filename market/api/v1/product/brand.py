@@ -24,7 +24,7 @@ class BrandAPI(MethodView):
         """品牌管理 查看品牌信息"""
         return brand_service.get_list(args)
 
-    @blp.arguments(BrandCreateSchema, location='query')
+    @blp.arguments(BrandCreateSchema)
     @blp.response(BrandSchema)
     def post(self, args: dict):
         """品牌管理 创建品牌信息"""

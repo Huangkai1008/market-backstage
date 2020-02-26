@@ -13,6 +13,7 @@ from market.schema.base import (
 class BrandSchema(SQLAlchemyPkSchema):
     class Meta:
         model = Brand
+        exclude = ['delete_time']
 
 
 class BrandQueryArgSchema(ListQueryArgSchema):
