@@ -9,6 +9,7 @@ from webargs.flaskparser import FlaskParser
 from market.api.v1 import storage as storage_api
 from market.api.v1.product import brand as brand_api
 from market.api.v1.product import category as category_api
+from market.api.v1.product import store as store_api
 from market.constant import message as msg
 from market.exceptions import MarketClientException, MarketException
 from market.extensions import api, db, ma, migrate, minio, redis
@@ -64,6 +65,7 @@ def register_api_blueprints():
 
     api.register_blueprint(brand_api.blp)
     api.register_blueprint(category_api.blp)
+    api.register_blueprint(store_api.blp)
     api.register_blueprint(storage_api.blp)
 
 
