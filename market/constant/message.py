@@ -10,3 +10,10 @@ RECORD_NOT_FOUND_ERROR = 'RECORD NOT FOUND'
 MINIO_CONFIG_ERROR = (
     'Either MINIO_ENDPOINT or MINIO_ACCESS_KEY or MINIO_SECRET_KEY needs to be set.'
 )
+REDIS_CONNECT_ERROR = 'Redis连接异常，程序退出'
+
+
+# Product Service Message
+CATEGORY_NOT_EXIST = '所选分类不存在'
+BRAND_NOT_EXIST = '所选品牌不存在'
+STORE_NOT_EXIST = '所选商铺不存在'

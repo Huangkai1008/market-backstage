@@ -135,7 +135,7 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
             db.session.commit()
 
     def get(self, record_id: int) -> Optional[PkModel]:
-        return self.model_class.get(record_id)
+        return self.model_class.query.get(record_id)
 
     def find(self, row_locked: bool = False, **kwargs) -> Optional[PkModel]:
         query = self.model_class.query.filter_by(**kwargs)
