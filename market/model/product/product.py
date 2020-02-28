@@ -36,4 +36,6 @@ class Sku(PkModel, SoftDeleteMixin):
 class SkuDetail(PkModel, SoftDeleteMixin):
     """商品SKU详情"""
 
+    __tablename__ = 'product_sku_detail'
+
     desc = db.Column(db.Text, nullable=False, comment='商品描述')

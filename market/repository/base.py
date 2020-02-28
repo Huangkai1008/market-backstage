@@ -116,6 +116,12 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
             db.session.commit()
         return instance
 
+    def flush(self, properties: Dict[str, Any]) -> PkModel:
+        instance = self.model_class(**properties)
+        db.session.add(instance)
+        db.session.flush()
+        return instance
+
     def update(
         self, record_id: int, properties: Dict[str, Any], commit: bool = True
     ) -> PkModel:

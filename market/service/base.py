@@ -21,11 +21,14 @@ class CRUDService(BaseService, metaclass=ABCMeta):
         items, total = self.repo.get_paginate_all(**args)
         return dict(items=items, total=total)
 
+    def get(self, record_id: int):
+        return self.repo.get(record_id)
+
     def create(self, args: dict, commit: bool = True):
         return self.repo.create(args, commit=commit)
 
-    def update(self, record_id: int, args: dict):
-        return self.repo.update(record_id, args)
+    def update(self, record_id: int, args: dict, commit: bool = True):
+        return self.repo.update(record_id, args, commit=commit)
 
     def delete(self, record_id: int):
         return self.repo.delete(record_id)

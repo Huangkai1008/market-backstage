@@ -1,5 +1,6 @@
 from .brand import BrandService
 from .category import CategoryService, CategorySpecService
+from .sku import SkuService
 from .spu import SpuService
 from .store import StoreService
 
@@ -8,3 +9,4 @@ category_service = CategoryService()
 category_spec_service = CategorySpecService()
 store_service = StoreService()
 spu_service = SpuService(category_service, brand_service, store_service)
+sku_service = SkuService()
