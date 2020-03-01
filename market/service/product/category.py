@@ -1,15 +1,9 @@
 from market.constant import message as msg
 from market.constant.product import CATEGORY_DEFAULT_LEVEL
-from market.extensions import db
-from market.repository.product import (
-    CategoryRepository,
-    CategorySpecRepository,
-    category_repo,
-    category_spec_repo,
-)
+from market.repository.product import CategoryRepository, category_repo
 from market.service.base import CRUDService
 
-__all__ = ['CategoryService', 'CategorySpecService']
+__all__ = ['CategoryService']
 
 
 class CategoryService(CRUDService):
@@ -29,14 +23,3 @@ class CategoryService(CRUDService):
             level = CATEGORY_DEFAULT_LEVEL
         args['level'] = level
         return super().create(args)
-
-
-class CategorySpecService(CRUDService):
-    @property
-    def repo(self) -> CategorySpecRepository:
-        return category_spec_repo
-
-    def create_many(self, args: dict):
-        for arg in args:
-            self.create(arg, commit=False)
-        db.session.commit()

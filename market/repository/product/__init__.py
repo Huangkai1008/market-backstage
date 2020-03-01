@@ -1,11 +1,12 @@
 from .brand import BrandRepository
-from .category import CategoryRepository, CategorySpecRepository
+from .category import CategoryRepository
 from .product import SkuDetailRepository, SkuRepository, SpuRepository
+from .spec import SpecRepository
 from .store import StoreRepository
 
 brand_repo = BrandRepository()
 category_repo = CategoryRepository()
-category_spec_repo = CategorySpecRepository()
+spec_repo = SpecRepository()
 store_repo = StoreRepository()
 spu_repo = SpuRepository()
 sku_repo = SkuRepository()

@@ -10,6 +10,7 @@ from market.api.v1 import storage as storage_api
 from market.api.v1.product import brand as brand_api
 from market.api.v1.product import category as category_api
 from market.api.v1.product import sku as sku_api
+from market.api.v1.product import spec as spec_api
 from market.api.v1.product import spu as spu_api
 from market.api.v1.product import store as store_api
 from market.constant import message as msg
@@ -68,6 +69,7 @@ def register_api_blueprints():
     api.register_blueprint(brand_api.blp)
     api.register_blueprint(category_api.blp)
     api.register_blueprint(store_api.blp)
+    api.register_blueprint(spec_api.blp)
     api.register_blueprint(spu_api.blp)
     api.register_blueprint(sku_api.blp)
 

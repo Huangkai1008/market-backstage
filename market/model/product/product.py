@@ -1,9 +1,10 @@
 from sqlalchemy import UniqueConstraint
 
+from market.constant.product import SpecType
 from market.extensions import db
 from market.model.base import PkModel, SoftDeleteMixin
 
-__all__ = ['Spu', 'Sku', 'SkuDetail']
+__all__ = ['Spu', 'Sku', 'SkuDetail', 'SkuSpec']
 
 
 class Spu(PkModel, SoftDeleteMixin):
@@ -39,3 +40,20 @@ class SkuDetail(PkModel, SoftDeleteMixin):
     __tablename__ = 'product_sku_detail'
 
     desc = db.Column(db.Text, nullable=False, comment='商品描述')
+
+
+class SkuSpec(PkModel, SoftDeleteMixin):
+    """商品SKU规格信息
+
+    继承分类规格信息，可在分类规格信息上扩展
+
+    """
+
+    __tablename__ = 'product_sku_spec'
+
+    sku_id = db.Column(db.BigInteger, comment='SKU ID')
+    name = db.Column(db.String(64), nullable=False, comment='规格名称')  # 颜色，内存大小 ...
+    spec_type = db.Column(
+        db.SmallInteger, nullable=False, index=True, comment=SpecType.desc()
+    )
+    value = db.Column(db.String(127), comment='规格值')  # 红色，16GB ...

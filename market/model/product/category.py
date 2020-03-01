@@ -3,7 +3,7 @@ from sqlalchemy import UniqueConstraint
 from market.constant.product import (
     CATEGORY_DEFAULT_LEVEL,
     CATEGORY_DEFAULT_PARENT_ID,
-    CategorySpecType,
+    SpecType,
 )
 from market.extensions import db
 from market.model.base import PkModel, SoftDeleteMixin
@@ -49,6 +49,6 @@ class CategorySpec(PkModel, SoftDeleteMixin):
     cat_id = db.Column(db.Integer, nullable=False, index=True, comment='商品分类ID')
     name = db.Column(db.String(64), nullable=False, comment='分类规格名称')  # 颜色，内存大小 ...
     spec_type = db.Column(
-        db.SmallInteger, nullable=False, index=True, comment=CategorySpecType.desc()
+        db.SmallInteger, nullable=False, index=True, comment=SpecType.desc()
     )
     selectable = db.Column(db.Boolean, nullable=False, comment='是否参与筛选')
