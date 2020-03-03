@@ -40,6 +40,10 @@ class MinioHook:
     def endpoint(self) -> str:
         return self.app.config['MINIO_ENDPOINT']
 
+    @property
+    def delimiter(self) -> str:
+        return '/'
+
     def set_read_only_bucket_policy(self, bucket_name: str):
         """Set anonymous read-only bucket policy."""
         policy = {
@@ -63,16 +67,12 @@ class MinioHook:
 
     def get_object_name(self, object_name: str) -> str:
         """Return generate object name."""
-        return f'{self.get_dir_name()}{self.delimiter}{object_name}'
-
-    @staticmethod
-    def get_dir_name() -> str:
-        """Get directory name as object name prefix."""
-        return f'{dt.date.today().strftime("%Y-%m-%d")}'
-
-    @property
-    def delimiter(self) -> str:
-        return '/'
+        return f'{self._get_dir_name()}{self.delimiter}{object_name}'
 
     def get_url(self, bucket_name: str, object_name: str) -> str:
         return f'{self.endpoint}/{bucket_name}/{object_name}'
+
+    @staticmethod
+    def _get_dir_name() -> str:
+        """Get directory name as object name prefix."""
+        return f'{dt.date.today().strftime("%Y-%m-%d")}'

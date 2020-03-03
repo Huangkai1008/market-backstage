@@ -72,32 +72,6 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         sort_conditions = self._get_sort_conditions(**kwargs)
         return self.get_base_queryset().filter(*conditions).order_by(*sort_conditions)
 
-    def _get_conditions(self, **kwargs) -> list:
-        conditions = list()
-        for param, value in kwargs.items():
-            if param in self.query_params:
-                conditions.append(getattr(self.model_class, param) == value)
-            elif param in self.fuzzy_query_params:
-                conditions.append(getattr(self.model_class, param).like(f'%{value}%'))
-            elif param in self.in_query_params:
-                conditions.append(
-                    conditions.append(getattr(self.model_class, param).in_(value))
-                )
-            elif param in self.range_query_params:
-                start, end = value
-                if start:
-                    conditions.append(getattr(self.model_class, param) >= start)
-                if end:
-                    conditions.append(getattr(self.model_class, param) <= end)
-        return conditions
-
-    def _get_sort_conditions(self, **kwargs) -> list:
-        sort_conditions = list()
-        if kwargs.get('ordering'):
-            ordering = kwargs['ordering']
-            self._update_ordering(self.model_class, ordering, sort_conditions)
-        return sort_conditions
-
     def get_all(self, **kwargs) -> List[PkModel]:
         query = self.get_queryset(**kwargs)
         return query.all()
@@ -148,3 +122,29 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         if row_locked:
             query = query.with_for_update()
         return query.first()
+
+    def _get_conditions(self, **kwargs) -> list:
+        conditions = list()
+        for param, value in kwargs.items():
+            if param in self.query_params:
+                conditions.append(getattr(self.model_class, param) == value)
+            elif param in self.fuzzy_query_params:
+                conditions.append(getattr(self.model_class, param).like(f'%{value}%'))
+            elif param in self.in_query_params:
+                conditions.append(
+                    conditions.append(getattr(self.model_class, param).in_(value))
+                )
+            elif param in self.range_query_params:
+                start, end = value
+                if start:
+                    conditions.append(getattr(self.model_class, param) >= start)
+                if end:
+                    conditions.append(getattr(self.model_class, param) <= end)
+        return conditions
+
+    def _get_sort_conditions(self, **kwargs) -> list:
+        sort_conditions = list()
+        if kwargs.get('ordering'):
+            ordering = kwargs['ordering']
+            self._update_ordering(self.model_class, ordering, sort_conditions)
+        return sort_conditions
