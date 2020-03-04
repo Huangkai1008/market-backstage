@@ -8,5 +8,5 @@ __all__ = ['BrandRepository']
 
 class BrandRepository(CRUDRepository):
     @property
-    def model_class(self) -> Type[Brand]:
+    def model(self) -> Type[Brand]:
         return Brand

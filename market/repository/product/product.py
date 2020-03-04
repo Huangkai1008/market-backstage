@@ -8,17 +8,17 @@ __all__ = ['SpuRepository', 'SkuRepository', 'SkuDetailRepository']
 
 class SpuRepository(CRUDRepository):
     @property
-    def model_class(self) -> Type[Spu]:
+    def model(self) -> Type[Spu]:
         return Spu
 
 
 class SkuRepository(CRUDRepository):
     @property
-    def model_class(self) -> Type[Sku]:
+    def model(self) -> Type[Sku]:
         return Sku
 
 
 class SkuDetailRepository(CRUDRepository):
     @property
-    def model_class(self) -> Type[SkuDetail]:
+    def model(self) -> Type[SkuDetail]:
         return SkuDetail

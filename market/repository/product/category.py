@@ -6,5 +6,5 @@ from market.repository.base import CRUDRepository
 
 class CategoryRepository(CRUDRepository):
     @property
-    def model_class(self) -> Type[Category]:
+    def model(self) -> Type[Category]:
         return Category

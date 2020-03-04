@@ -44,7 +44,7 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def model_class(self) -> Type[PkModel]:
+    def model(self) -> Type[PkModel]:
         """CRUD model class."""
 
     @property
@@ -64,7 +64,7 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         return tuple()
 
     def get_base_queryset(self):
-        queryset = db.session.query(self.model_class)
+        queryset = db.session.query(self.model)
         return queryset
 
     def get_queryset(self, **kwargs):
@@ -84,14 +84,14 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         return query.all(), total
 
     def create(self, properties: Dict[str, Any], commit: bool = True) -> PkModel:
-        instance = self.model_class(**properties)
+        instance = self.model(**properties)
         db.session.add(instance)
         if commit:
             db.session.commit()
         return instance
 
     def flush(self, properties: Dict[str, Any]) -> PkModel:
-        instance = self.model_class(**properties)
+        instance = self.model(**properties)
         db.session.add(instance)
         db.session.flush()
         return instance
@@ -99,7 +99,7 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
     def update(
         self, record_id: int, properties: Dict[str, Any], commit: bool = True
     ) -> PkModel:
-        instance = self.model_class.query.with_for_update().get(record_id)
+        instance = self.model.query.with_for_update().get(record_id)
         if not instance:
             raise MarketBadRequest(msg.RECORD_NOT_FOUND_ERROR)
 
@@ -110,15 +110,15 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         return instance
 
     def delete(self, record_id: int, commit: bool = True):
-        self.model_class.query.filter_by(id=record_id).delete()
+        self.model.query.filter_by(id=record_id).delete()
         if commit:
             db.session.commit()
 
     def get(self, record_id: int) -> Optional[PkModel]:
-        return self.model_class.query.get(record_id)
+        return self.model.query.get(record_id)
 
     def find(self, row_locked: bool = False, **kwargs) -> Optional[PkModel]:
-        query = self.model_class.query.filter_by(**kwargs)
+        query = self.model.query.filter_by(**kwargs)
         if row_locked:
             query = query.with_for_update()
         return query.first()
@@ -127,24 +127,24 @@ class CRUDRepository(BaseRepository, metaclass=ABCMeta):
         conditions = list()
         for param, value in kwargs.items():
             if param in self.query_params:
-                conditions.append(getattr(self.model_class, param) == value)
+                conditions.append(getattr(self.model, param) == value)
             elif param in self.fuzzy_query_params:
-                conditions.append(getattr(self.model_class, param).like(f'%{value}%'))
+                conditions.append(getattr(self.model, param).like(f'%{value}%'))
             elif param in self.in_query_params:
                 conditions.append(
-                    conditions.append(getattr(self.model_class, param).in_(value))
+                    conditions.append(getattr(self.model, param).in_(value))
                 )
             elif param in self.range_query_params:
                 start, end = value
                 if start:
-                    conditions.append(getattr(self.model_class, param) >= start)
+                    conditions.append(getattr(self.model, param) >= start)
                 if end:
-                    conditions.append(getattr(self.model_class, param) <= end)
+                    conditions.append(getattr(self.model, param) <= end)
         return conditions
 
     def _get_sort_conditions(self, **kwargs) -> list:
         sort_conditions = list()
         if kwargs.get('ordering'):
             ordering = kwargs['ordering']
-            self._update_ordering(self.model_class, ordering, sort_conditions)
+            self._update_ordering(self.model, ordering, sort_conditions)
         return sort_conditions

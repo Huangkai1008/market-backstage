@@ -6,7 +6,7 @@ from market.repository.base import CRUDRepository
 
 class SpecRepository(CRUDRepository):
     @property
-    def model_class(self) -> Type[Spec]:
+    def model(self) -> Type[Spec]:
         return Spec
 
     @property
