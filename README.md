@@ -29,7 +29,7 @@ poetry shell                    # Start the virtualenv
 cp .env.example .env
 ```
 
-3. Run it
+4. Run it
 ```bash
 flask run
 ```
@@ -46,6 +46,16 @@ gunicorn autoapp:app
         --error-logfile -
 ```
 
+#### With Docker
+1.Build image
+```bash
+docker build -t market-backstage:0.1.0 .
+```
+
+2.Start service with docker-compose
+```bash
+docker-compose up -d
+```
 
 ## License
 [MIT](https://www.mit-license.org/)
