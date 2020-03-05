@@ -17,8 +17,11 @@ class Spu(PkModel, SoftDeleteMixin):
     unit = db.Column(db.String(32), nullable=False, comment='单位（件/台...）')
     published = db.Column(db.Boolean, nullable=False, default=True, comment='上架状态')
     cat_id = db.Column(db.Integer, nullable=False, index=True, comment='商品分类ID')
+    cat_name = db.Column(db.String(64), nullable=False, comment='商品分类名称')
     brand_id = db.Column(db.Integer, nullable=False, index=True, comment='品牌ID')
+    brand_name = db.Column(db.String(64), nullable=False, comment='品牌名称')
     store_id = db.Column(db.Integer, nullable=False, index=True, comment='商铺ID')
+    store_name = db.Column(db.String(64), nullable=False, comment='商铺名称')
 
 
 class Sku(PkModel, SoftDeleteMixin):

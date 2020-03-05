@@ -35,7 +35,10 @@ class SpuService(CRUDService):
         return spu_repo
 
     def create(self, args: dict, commit: bool = True):
-        self.category_service.get_or_error(args['cat_id'])
-        self.brand_service.get_or_error(args['brand_id'])
-        self.store_service.get_or_error(args['store_id'])
+        category = self.category_service.get_or_error(args['cat_id'])
+        brand = self.brand_service.get_or_error(args['brand_id'])
+        store = self.store_service.get_or_error(args['store_id'])
+        args['cat_name'] = category.name
+        args['brand_name'] = brand.name
+        args['store_name'] = store.name
         return super().create(args, commit=commit)

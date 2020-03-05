@@ -43,5 +43,5 @@ class SpecByIdAPI(MethodView):
 
     @blp.response(RespSchema)
     def delete(self, spec_id: int):
-        """商品规格管理 删除分类规格信息"""
+        """商品规格管理 删除规格信息"""
         return spec_service.delete(spec_id)
