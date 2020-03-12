@@ -72,7 +72,7 @@ class MinioHook:
     def get_url(self, bucket_name: str, object_name: str) -> str:
         return f'{self.endpoint}/{bucket_name}/{object_name}'
 
-    @staticmethod
-    def _get_dir_name() -> str:
+    @classmethod
+    def _get_dir_name(cls) -> str:
         """Get directory name as object name prefix."""
         return f'{dt.date.today().strftime("%Y-%m-%d")}'
