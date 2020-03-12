@@ -4,7 +4,7 @@ from market.constant.product import SpecType
 from market.extensions import db
 from market.model.base import PkModel, SoftDeleteMixin
 
-__all__ = ['Spu', 'Sku', 'SkuDetail', 'SkuSpec']
+__all__ = ['Spu', 'Sku', 'SkuStock', 'SkuDetail']
 
 
 class Spu(PkModel, SoftDeleteMixin):
@@ -23,6 +23,9 @@ class Spu(PkModel, SoftDeleteMixin):
     store_id = db.Column(db.Integer, nullable=False, index=True, comment='商铺ID')
     store_name = db.Column(db.String(64), nullable=False, comment='商铺名称')
 
+    def __repr__(self) -> str:
+        return f'<Spu(id={self.id}, name={self.name})>'
+
 
 class Sku(PkModel, SoftDeleteMixin):
     """商品SKU"""
@@ -31,10 +34,25 @@ class Sku(PkModel, SoftDeleteMixin):
 
     __table_args__ = (UniqueConstraint('number', 'delete_time'),)
 
+    spu_id = db.Column(db.BigInteger, nullable=False, index=True, comment='SPU ID')
     number = db.Column(db.String(64), nullable=False, comment='SKU编号')
     price = db.Column(db.DECIMAL(10, 2), nullable=False, comment='价格')
+
+    def __repr__(self) -> str:
+        return f'<Sku(id={self.id}, number={self.number}, spu_id={self.spu_id})>'
+
+
+class SkuStock(PkModel, SoftDeleteMixin):
+    """商品SKU库存"""
+
+    __tablename__ = 'product_sku_stock'
+
+    sku_id = db.Column(db.BigInteger, nullable=False, unique=True, comment='SKU ID')
     stock = db.Column(db.Integer, nullable=False, default=0, comment='库存')
     sales = db.Column(db.Integer, nullable=False, default=0, comment='销量')
+
+    def __repr__(self) -> str:
+        return f'<SkuStock(id={self.id}, sku_id={self.sku_id}, stock={self.stock})>'
 
 
 class SkuDetail(PkModel, SoftDeleteMixin):
@@ -42,7 +60,11 @@ class SkuDetail(PkModel, SoftDeleteMixin):
 
     __tablename__ = 'product_sku_detail'
 
+    sku_id = db.Column(db.BigInteger, nullable=False, unique=True, comment='SKU ID')
     desc = db.Column(db.Text, nullable=False, comment='商品描述')
+
+    def __repr__(self) -> str:
+        return f'<SkuDetail(sku_id={self.sku_id})>'
 
 
 class SkuSpec(PkModel, SoftDeleteMixin):
@@ -60,3 +82,6 @@ class SkuSpec(PkModel, SoftDeleteMixin):
         db.SmallInteger, nullable=False, index=True, comment=SpecType.desc()
     )
     value = db.Column(db.String(127), comment='规格值')  # 红色，16GB ...
+
+    def __repr__(self) -> str:
+        return f'<SkuSpec(id={self.id}, sku_id={self.sku_id}, name={self.name}, value={self.value})>'

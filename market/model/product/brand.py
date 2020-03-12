@@ -16,3 +16,6 @@ class Brand(PkModel, SoftDeleteMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False, comment='品牌名称')
     logo = db.Column(db.String(255), comment='品牌logo')
+
+    def __repr__(self) -> str:
+        return f'<Brand(id={self.id}, name={self.name})>'

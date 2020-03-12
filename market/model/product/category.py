@@ -33,3 +33,6 @@ class Category(PkModel, SoftDeleteMixin):
     keywords = db.Column(db.String(255), comment='分类关键词')
     icon = db.Column(db.String(255), comment='分类图标')
     desc = db.Column(db.String(255), comment='分类描述')
+
+    def __repr__(self) -> str:
+        return f'<Category(id={self.id}, name={self.name}, level={self.level}, parent_id={self.parent_id})>'

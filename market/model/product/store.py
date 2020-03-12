@@ -17,3 +17,6 @@ class Store(PkModel, SoftDeleteMixin):
     name = db.Column(db.String(64), nullable=False, comment='商铺名称')
     logo = db.Column(db.String(255), comment='商铺logo')
     desc = db.Column(db.String(255), comment='商铺简介')
+
+    def __repr__(self) -> str:
+        return f'<Store(id={self.id}, name={self.name})>'
