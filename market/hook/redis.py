@@ -4,6 +4,7 @@ from flask import Flask
 from loguru import logger
 from redis import ConnectionError, StrictRedis
 from redis.sentinel import Sentinel
+from rediscluster import RedisCluster
 
 from market.constant import message as msg
 from market.exceptions import MarketConfigException
@@ -22,6 +23,13 @@ class RedisHook(BaseHook):
 
     def init_app(self, app: Flask, redis_conn_name: str = 'redis_default'):
         self.app = app
+        if app.config['REDIS_CLUSTER_NODES']:
+            startup_nodes = self._get_rc_startup_nodes(
+                app.config['REDIS_CLUSTER_NODES']
+            )
+            self.client = RedisCluster(
+                startup_nodes=startup_nodes, decode_responses=True
+            )
         if app.config['REDIS_SENTINEL_URL']:
             sentinels = self._get_sentinels(app.config['REDIS_SENTINEL_URL'])
             sentinel = Sentinel(sentinels, socket_timeout=0.1)
@@ -32,6 +40,14 @@ class RedisHook(BaseHook):
             self.client = StrictRedis.from_url(redis_url, decode_responses=True)
         logger.info(f'Initializing redis hook for conn_name {redis_conn_name}')
         self._detect_connectivity()
+
+    @staticmethod
+    def _get_rc_startup_nodes(redis_cluster_nodes: List[str]) -> List[dict]:
+        start_up_nodes = list()
+        for node in redis_cluster_nodes:
+            host, port = node.split(':')
+            start_up_nodes.append(dict(host=host, port=port))
+        return start_up_nodes
 
     @staticmethod
     def _get_sentinels(redis_sentinel_url: List[str]) -> List[tuple]:

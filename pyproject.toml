@@ -3,7 +3,8 @@ name = "market-backstage"
 version = "0.1.0"
 description = "market-backstage is a Market backstage management system with [flask]"
 authors = ["huangkai <h1770360848@outlook.com>"]
-readme = 'README.md'
+readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -20,6 +21,7 @@ minio = "^7.0.3"
 gunicorn = "^20.1.0"
 eventlet = "^0.30.2"
 redis = "^3.5.3"
+redis-py-cluster = "^2.1.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

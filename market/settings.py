@@ -45,6 +45,7 @@ class Config:
     # Redis
     REDIS_URL = env.str('REDIS_URL')
     REDIS_SENTINEL_URL = env.list('REDIS_SENTINEL_URL', list())
+    REDIS_CLUSTER_NODES = env.list('REDIS_CLUSTER_NODES', list())
 
     # Minio
     MINIO_ENDPOINT = env.str('MINIO_ENDPOINT')
