@@ -1,2 +1,12 @@
 -r requirements/development.txt
 -i https://pypi.tuna.tsinghua.edu.cn/simple/
+
+Flask~=1.1.2
+loguru~=0.5.3
+redis~=3.5.3
+webargs~=8.0.0
+SQLAlchemy~=1.4.8
+marshmallow~=3.11.1
+environs~=9.3.2
+alembic~=1.5.8
+redis-py-cluster==2.1.3

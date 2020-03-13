@@ -24,8 +24,7 @@ class SkuService(CRUDService):
         return dict(sku, **sku_detail)
 
     def create(self, args: dict, commit: bool = True):
-        sku_detail = {field: args.pop('desc') for field in self.detail_fields}
-
+        sku_detail = {field: args.pop(field) for field in self.detail_fields}
         sku = self.repo.flush(args)
         sku_detail['id'] = sku.id
         sku_detail_repo.create(sku_detail, commit=False)
@@ -34,8 +33,7 @@ class SkuService(CRUDService):
         return sku
 
     def update(self, record_id: int, args: dict, commit: bool = True):
-        sku_detail = {field: args.pop('desc') for field in self.detail_fields}
-
+        sku_detail = {field: args.pop(field) for field in self.detail_fields}
         sku = super().update(record_id, args, commit=False)
         sku_detail_repo.update(record_id, sku_detail, commit=commit)
         if commit:
