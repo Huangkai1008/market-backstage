@@ -1,10 +1,9 @@
 version: '3'
 services:
   web:
-    image: market-backstage:0.1.0
+    image: market-backstage:${VERSION}
     volumes:
-      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-      - .:/app
+      - web-logs:/app/${LOG_PATH}
     env_file:
       - .env
     environment:
@@ -13,12 +12,25 @@ services:
     ports:
       - "5000:5000"
     restart: always
-    command: flask run -h 0.0.0.0
+    command: gunicorn
+        autoapp:app
+        --bind 127.0.0.1:5000
+        -w 8
+        -k eventlet
+        --access-logfile -
+        --error-logfile -
     depends_on:
       - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "localhost:5000/api/v1/configs/ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
   redis:
     image: redis:alpine
 networks:
-  default:
-    external:
-      name: market-backstage
+  market-backstage:
+    external: true
+volumes:
+  web-logs:
+

@@ -54,6 +54,8 @@ docker build -t market-backstage:0.1.0 .
 
 2.Start service with docker-compose
 ```bash
+docker create network market-backstage
+
 docker-compose up -d
 ```
 
