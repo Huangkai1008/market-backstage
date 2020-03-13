@@ -6,6 +6,7 @@ from flask import Flask, jsonify
 from loguru import logger
 from webargs.flaskparser import FlaskParser
 
+from market.api.v1 import config as config_api
 from market.api.v1 import storage as storage_api
 from market.api.v1.product import brand as brand_api
 from market.api.v1.product import category as category_api
@@ -66,14 +67,15 @@ def register_api_blueprints():
     api.ma_plugin.Converter._field2parameter = openapi_util.patched_field2parameter
     FlaskParser.DEFAULT_UNKNOWN_BY_LOCATION['json'] = None
 
+    api.register_blueprint(config_api.blp)
+    api.register_blueprint(storage_api.blp)
+
     api.register_blueprint(brand_api.blp)
     api.register_blueprint(category_api.blp)
     api.register_blueprint(store_api.blp)
     api.register_blueprint(spec_api.blp)
     api.register_blueprint(spu_api.blp)
     api.register_blueprint(sku_api.blp)
-
-    api.register_blueprint(storage_api.blp)
 
 
 def register_before_handlers(app: Flask):
