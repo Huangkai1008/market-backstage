@@ -42,6 +42,10 @@ class Config:
     OPENAPI_SWAGGER_UI_PATH = '/swagger-ui'
     OPENAPI_SWAGGER_UI_URL = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist/'
 
+    # Redis
+    REDIS_URL = env.str('REDIS_URL')
+    REDIS_SENTINEL_URL = env.list('REDIS_SENTINEL_URL', list())
+
     # Minio
     MINIO_ENDPOINT = env.str('MINIO_ENDPOINT')
     MINIO_ACCESS_KEY = env.str('MINIO_ACCESS_KEY')

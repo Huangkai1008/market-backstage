@@ -10,7 +10,7 @@ from market.api.v1 import storage as storage_api
 from market.api.v1.product import brand as brand_api
 from market.constant import message as msg
 from market.exceptions import MarketClientException, MarketException
-from market.extensions import api, db, ma, migrate, minio
+from market.extensions import api, db, ma, migrate, minio, redis
 from market.logging import configure_logger
 from market.util import openapi as openapi_util
 from market.util.response import APIFlask
@@ -49,6 +49,7 @@ def register_extensions(app: Flask):
     migrate.init_app(app, db=db)
     ma.init_app(app)
     minio.init_app(app)
+    redis.init_app(app)
 
 
 def register_api_blueprints():
