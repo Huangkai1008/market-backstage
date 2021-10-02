@@ -44,7 +44,7 @@ def configure_app(app: Flask):
     """Configure flask application with config file."""
     from market.settings import config
 
-    app.config.from_object(config.get(os.getenv('FLASK_ENV')))
+    app.config.from_object(config.get(os.getenv('FLASK_ENV', 'development')))
     app.url_map.strict_slashes = False
 
 
